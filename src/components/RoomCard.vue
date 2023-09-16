@@ -5,8 +5,9 @@
       <h2 class="text-h5 font-weight-bold">Book Name</h2>
 
       <ul>
-        <li>Friend 1: 100%</li>
-        <li>Friend 2: 100%</li>
+        <li>My Name: 2</li>
+        <li>Friend 1: 4</li>
+        <li>Friend 2: 3</li>
       </ul>
 
     </v-responsive>
