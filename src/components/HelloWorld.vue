@@ -7,6 +7,7 @@
       <div class="py-14" />
 
       Invite Only
+      <RoomAdd />
 
     </v-responsive>
   </v-container>
@@ -14,4 +15,6 @@
 
 <script lang="ts" setup>
 //
+import RoomAdd from '@/components/RoomAdd.vue'
+
 </script>
