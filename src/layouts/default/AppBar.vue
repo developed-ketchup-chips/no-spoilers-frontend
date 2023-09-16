@@ -1,5 +1,7 @@
 <template>
-  <v-app-bar flat>
+  <v-app-bar flat
+          color="primary"
+>
     <v-app-bar-title>
       <RouterLink to="/">Home</RouterLink>
       &nbsp;
@@ -11,3 +13,4 @@
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router'
 </script>
+

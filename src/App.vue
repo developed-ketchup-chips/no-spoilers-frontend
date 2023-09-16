@@ -5,3 +5,12 @@
 <script lang="ts" setup>
   //
 </script>
+
+<style>
+
+#app{
+  background: #fff;
+
+}
+
+</style>

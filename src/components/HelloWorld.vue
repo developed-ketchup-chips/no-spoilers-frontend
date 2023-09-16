@@ -7,6 +7,8 @@
       <div class="py-14" />
 
       Invite Only
+            <div class="py-14" />
+
       <RoomAdd />
 
     </v-responsive>
