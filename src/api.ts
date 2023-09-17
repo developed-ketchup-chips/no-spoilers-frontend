@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 
-const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
+const BASE_URL = "https://dear-cardinal-lasting.ngrok-free.app"
 // const BASE_URL = "http://127.0.0.1:5000"
 
 export enum RoomType {
