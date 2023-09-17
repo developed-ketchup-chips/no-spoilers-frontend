@@ -5,6 +5,7 @@
  */
 
 import axios from 'axios';
+import { log } from 'console';
 
 const BASE_URL = "https://dear-cardinal-lasting.ngrok-free.app"
 // const BASE_URL = "http://127.0.0.1:5000"
@@ -16,7 +17,7 @@ export enum RoomType {
 
 export interface Room {
   name: string;
-  type: RoomType;
+  type: string;
   length: number;
   progress: number;
   code: string;
@@ -83,7 +84,7 @@ interface API {
   listRooms(): Promise<Room[] | undefined>;
 
   // create room
-  createRoom(name: string, type: RoomType, length: number): Promise<undefined>;
+  createRoom(name: string, type: string, length: number): Promise<undefined>;
 
   // update room
   updateRoom(code: string, room: UpdateRoom): Promise<undefined>;
@@ -114,8 +115,10 @@ export class RealAPI {
     }
   }
 
-  async createRoom(name: string, type: RoomType, length: number): Promise<undefined> {
-    const response = await axios.post('/rooms', {
+  async createRoom(name: string, type: string, length: number): Promise<undefined> {
+
+
+    const response = await axios.post('https://dear-cardinal-lasting.ngrok-free.app/rooms', {
       name: name,
       type: type,
       length: length,
@@ -151,7 +154,7 @@ export class StubAPI {
     });
   }
 
-  async createRoom(name: string, type: RoomType, length: number): Promise<undefined> {
+  async createRoom(name: string, type: string, length: number): Promise<undefined> {
     console.log(`Creating room ${name} ${type} ${length}`);
 
     return Promise.resolve(undefined);
