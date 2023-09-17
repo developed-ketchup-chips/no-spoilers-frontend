@@ -1,11 +1,17 @@
 <template>
-  <v-container class="fill-height">
-    <v-responsive class="align-center text-center fill-height">
+  <v-container class="">
+    <v-responsive class="align-center text-center ">
+      <v-card
+    class="mx-auto room-card"
+    max-width="344"
 
-      <h2 class="text-h5 font-weight-bold">{{title}}</h2>
-      <p>length: {{ length }}</p>
-      <p>type : {{ type }}</p>
-      <div>
+  >
+    <v-card-text>
+      <h2 class="text-h5 font-weight-bold pa-md-6">{{title}}</h2>
+      <p class="pt-2">length: {{ length }}</p>
+      <p class="pt-2">type : {{ type }}</p>
+    </v-card-text>
+    <div>
         <p>My progress:</p>
         <v-progress-linear
         bg-color="pink-lighten-3"
@@ -13,9 +19,19 @@
         :model-value="progress"
         ></v-progress-linear>
       </div>
-      <ul>
+      <ul class="pt-3">
         <FriendProgress v-for="(friend,index) in friendProgressData" :key="index+1" v-bind="friend"/>
       </ul>
+    <v-card-actions>
+      <v-btn
+        variant="text"
+        color="deep-purple-accent-4"
+      >
+        Learn More
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+
 
     </v-responsive>
   </v-container>
@@ -36,3 +52,10 @@ defineProps({
 
 
 </script>
+
+<style>
+.room-card{
+  padding: 10px;
+  background-color: #F3EFE0;
+}
+</style>
