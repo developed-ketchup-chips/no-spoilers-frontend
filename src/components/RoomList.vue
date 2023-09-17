@@ -11,12 +11,12 @@
   </v-container>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 
 import RoomCard from '@/components/RoomCard.vue'
 import { ref } from 'vue'
 
-const rooms = ref([{title:'Room1',length: '100 pages',
+const rooms = ref([{title:'Room1', id: 1, length: '100 pages',
       type: 'book',
       progress:50, friendProgressData: [{
   name: 'friend1',
@@ -31,7 +31,7 @@ const rooms = ref([{title:'Room1',length: '100 pages',
   progress: 20,
 
 }]},
-{title:'Room1',length: '100 pages',
+{title:'Room2', id: 2, length: '100 pages',
       type: 'book',
       progress:50, friendProgressData: [{
   name: 'friend1',
@@ -45,7 +45,7 @@ const rooms = ref([{title:'Room1',length: '100 pages',
   name: 'friend2',
   progress: 20,
 
-}]},{title:'Room1',length: '100 pages',
+}]},{title:'Room3', id: 3, length: '100 pages',
       type: 'book',
       progress:50, friendProgressData: [{
   name: 'friend1',
