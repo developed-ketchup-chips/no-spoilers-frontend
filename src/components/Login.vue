@@ -9,7 +9,7 @@
       Enter the email address associated with your account, and we’ll send a magic link to your inbox.
       <div class="py-14" />
       <form>
-        <p>email: <input type="text" required></p>
+        <p>email: <input type="email" v-model="email" required></p>
         <button @click="submit">Continue</button>
       </form>
     </v-responsive>
