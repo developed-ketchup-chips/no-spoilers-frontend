@@ -20,9 +20,6 @@
         <v-card-text>
           <v-container>
             <v-row>
-
-
-
               <v-col
                 cols="12"
                 sm="6"
