@@ -9,13 +9,25 @@ import axios from 'axios';
 // const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
 const BASE_URL = "http://127.0.0.1:5000"
 
+enum RoomType {
+  Book = 'book',
+  Show = 'show'
+}
+
 export interface Room {
   title: string;
-  type: string;
+  type: RoomType;
   length: number;
   progress: number;
   code: string;
-  friends: Array<Member[]>;
+  members: Array<Member[]>;
+}
+
+export interface UpdateRoom {
+  title: string | undefined;
+  type: RoomType | undefined;
+  length: number | undefined;
+  progress: number | undefined;
 }
 
 export interface Member {
@@ -59,7 +71,17 @@ export function createAPI(): API {
 }
 
 interface API {
+  // get room data for a single room, using the room code
+  getRoom(code: string): Promise<Room | undefined>;
+
+  // get all rooms for the current user
   getRooms(): Promise<Room[] | undefined>;
+
+  // create room
+  createRoom(title: string, type: RoomType, length: number): Promise<undefined>;
+
+  // update room
+  updateRoom(code: string, room: UpdateRoom): Promise<undefined>;
 }
 
 export class RealAPI {
@@ -89,14 +111,49 @@ export class RealAPI {
 export class StubAPI {
   constructor(token: string) { console.log(`Initializing API for ${token}`) }
 
+  async getRoom(code: string): Promise<Room | undefined> {
+    return Promise.resolve({
+      title: 'Room1',
+      length: 100,
+      type: RoomType.Book,
+      code: code,
+      progress: 50,
+      members: [{
+        name: 'friend1',
+        progress: 10,
+
+      }, {
+        name: 'friend3',
+        progress: 10,
+
+      }, {
+        name: 'friend2',
+        progress: 20,
+
+      }]
+    });
+  }
+
+  async createRoom(title: string, type: RoomType, length: number): Promise<undefined> {
+    console.log(`Creating room ${title} ${type} ${length}`);
+
+    return Promise.resolve(undefined);
+  }
+
+  async updateRoom(code: string, room: UpdateRoom): Promise<undefined> {
+    console.log(`Updating room ${code}: ${room.progress}`);
+
+    return Promise.resolve(undefined);
+  }
+
   async getRooms(): Promise<Room[] | undefined> {
     return Promise.resolve([{
       title: 'Room1',
       length: 100,
-      type: 'book',
+      type: RoomType.Book,
       code: 'a76e4',
       progress: 50,
-      friends: [{
+      members: [{
         name: 'friend1',
         progress: 10,
 
@@ -112,10 +169,10 @@ export class StubAPI {
     },
     {
       title: 'Room1', length: 100,
-      type: 'book',
+      type: RoomType.Book,
       code: 'b35hi',
       progress: 50,
-      friends: [{
+      members: [{
         name: 'friend1',
         progress: 10,
 
@@ -133,9 +190,9 @@ export class StubAPI {
       title: 'Room1',
       code: 'c89g10',
       length: 32,
-      type: 'show',
+      type: RoomType.Show,
       progress: 3,
-      friends: [{
+      members: [{
         name: 'friend1',
         progress: 1,
 
