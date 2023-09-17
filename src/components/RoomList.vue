@@ -25,7 +25,7 @@ const rooms = ref<Room[]|undefined>([]); // Initialize rooms as an empty array o
 
 onMounted(async () => {
   // Fetch rooms data when the component is mounted
-  rooms.value = await API.getRooms();
+  rooms.value = await API.listRooms();
 });
 
 </script>
