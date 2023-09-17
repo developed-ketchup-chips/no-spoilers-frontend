@@ -38,12 +38,11 @@
                 cols="12"
                 sm="6"
               >
-              <v-autocomplete
-                  :items="['Book', 'TV Show', 'Movie']"
+              <v-select
+                  :items="['book', 'show']"
                   v-model="mediatype"
                   label="Media Type"
-                  multiple
-                ></v-autocomplete>
+                ></v-select>
               </v-col>
               <v-col
                 cols="12"
@@ -84,18 +83,20 @@
 </template>
 
 <script lang="ts">
+import { createAPI } from '@/api'
+const API = createAPI();
   export default {
     data: () => ({
       dialog: false,
       tvname: '',
-      medialength:'',
-      mediatype:null,
+      medialength:0,
+      mediatype: '',
     })
     ,
     methods: {
-      submit (e) {
-        e.preventDefault();
-        console.log(this.tvname);
+     async submit () {
+        console.log(this.tvname, this.mediatype, this.medialength);
+        await API.createRoom(this.tvname, this.mediatype, this.medialength);
 
 
     }
