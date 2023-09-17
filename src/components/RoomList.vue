@@ -7,13 +7,16 @@
         <RoomCard v-for="(room,index) in rooms" :key="index" v-bind="room"/>
       </ul>
 
+
     </v-responsive>
+    <RoomUpdate />
   </v-container>
 </template>
 
 <script setup>
 
 import RoomCard from '@/components/RoomCard.vue'
+import RoomUpdate from '@/components/RoomUpdate.vue'
 import { ref } from 'vue'
 
 const rooms = ref([{title:'Room1',length: '100 pages',
