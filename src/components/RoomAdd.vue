@@ -28,6 +28,7 @@
                 <v-text-field
                   label="Name of TV show*"
                   hint="Dont forget to fill me in"
+                  v-model="tvname"
                   persistent-hint
                   required
                 ></v-text-field>
@@ -39,6 +40,7 @@
               >
               <v-autocomplete
                   :items="['Book', 'TV Show', 'Movie']"
+                  v-model="mediatype"
                   label="Media Type"
                   multiple
                 ></v-autocomplete>
@@ -49,6 +51,7 @@
               >
               <v-text-field
                   label="Media Length*"
+                  v-model = "medialength"
                   required
                 ></v-text-field>
               </v-col>
@@ -70,7 +73,7 @@
           <v-btn
             color="blue-darken-1"
             variant="text"
-            @click="dialog = false"
+            @click="submit"
           >
             Save
           </v-btn>
@@ -80,12 +83,24 @@
   </v-row>
 </template>
 
-<script>
+<script lang="ts">
   export default {
     data: () => ({
       dialog: false,
-    }),
+      tvname: '',
+      medialength:'',
+      mediatype:null,
+    })
+    ,
+    methods: {
+      submit (e) {
+        e.preventDefault();
+        console.log(this.tvname);
+
+
+    }
   }
+}
 </script>
 
 
