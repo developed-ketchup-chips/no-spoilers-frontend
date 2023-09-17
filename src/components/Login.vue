@@ -9,7 +9,11 @@
       Enter the email address associated with your account, and we’ll send a magic link to your inbox.
       <div class="py-14" />
       <form>
-        <p>email: <input type="text" required></p>
+        <v-text-field
+          v-model="email"
+          label="Email"
+          type="email"
+          required></v-text-field>
         <button @click="submit">Continue</button>
       </form>
     </v-responsive>
@@ -25,10 +29,11 @@ export default {
     }
   },
   methods: {
-    async submit(e) {
+    async submit(e: Event) {
       e.preventDefault();
       await authenticate(this.email);
       this.email = '';
+      this.$router.push('/rooms');
     }
   }
 }

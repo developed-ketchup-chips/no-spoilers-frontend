@@ -6,21 +6,38 @@
 
 import axios from 'axios';
 
-// const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
-const BASE_URL = "http://127.0.0.1:5000"
+const BASE_URL = "https://dear-cardinal-lasting.ngrok-free.app"
+// const BASE_URL = "http://127.0.0.1:5000"
+
+export enum RoomType {
+  Book = 'book',
+  Show = 'show',
+}
 
 export interface Room {
-  title: string;
-  type: string;
+  name: string;
+  type: RoomType;
   length: number;
   progress: number;
   code: string;
-  friends: Array<Member[]>;
+  members: Array<Member[]>;
+}
+
+export interface UpdateRoom {
+  name: string | undefined;
+  type: RoomType | undefined;
+  length: number | undefined;
+  progress: number | undefined;
 }
 
 export interface Member {
   name: string;
   progress: number;
+}
+
+export interface InviteMember {
+  name: string;
+  email: number;
 }
 
 // authenticate with the backend (doesn't require a token)
@@ -49,17 +66,30 @@ export async function authenticate(email: string): Promise<void> {
 }
 
 export function createAPI(): API {
-  // const token = localStorage.getItem('token');
-  const token = 'token';
+  const token = localStorage.getItem('token');
+  // const token = 'token';
   if (token) {
-    return new StubAPI(token);
+    return new RealAPI(token);
   } else {
     throw new Error('No token found');
   }
 }
 
 interface API {
-  getRooms(): Promise<Room[] | undefined>;
+  // get room data for a single room, using the room code
+  getRoom(code: string): Promise<Room | undefined>;
+
+  // get all rooms for the current user
+  listRooms(): Promise<Room[] | undefined>;
+
+  // create room
+  createRoom(name: string, type: RoomType, length: number): Promise<undefined>;
+
+  // update room
+  updateRoom(code: string, room: UpdateRoom): Promise<undefined>;
+
+  // invite members
+  inviteMembers(code: string, members: InviteMember[]): Promise<undefined>;
 }
 
 export class RealAPI {
@@ -69,13 +99,13 @@ export class RealAPI {
   constructor(token: string) {
     this.instance = axios.create({
       baseURL: BASE_URL,
-      headers: { 'Authorization': `Bearer ${token}` }
+      headers: { 'Authorization': `Bearer ${token}`, 'token': token }
     });
   }
 
-  async getRooms(): Promise<Room[] | undefined> {
+  async listRooms(): Promise<Room[] | undefined> {
     try {
-      const response = await axios.get('/rooms');
+      const response = await this.instance.get('/rooms');
       if (response.status == 200) {
         return response.data;
       }
@@ -83,20 +113,73 @@ export class RealAPI {
       console.error(error);
     }
   }
+
+  async createRoom(name: string, type: RoomType, length: number): Promise<undefined> {
+    const response = await axios.post('/rooms', {
+      name: name,
+      type: type,
+      length: length,
+    });
+    return Promise<undefined>;
+  }
 }
 
 // StubAPI stands in so we can develop the UI without a backend
 export class StubAPI {
   constructor(token: string) { console.log(`Initializing API for ${token}`) }
 
-  async getRooms(): Promise<Room[] | undefined> {
-    return Promise.resolve([{
-      title: 'Room1',
+  async getRoom(code: string): Promise<Room | undefined> {
+    return Promise.resolve({
+      name: 'Room1',
       length: 100,
-      type: 'book',
+      type: RoomType.Book,
+      code: code,
+      progress: 50,
+      members: [{
+        name: 'friend1',
+        progress: 10,
+
+      }, {
+        name: 'friend3',
+        progress: 10,
+
+      }, {
+        name: 'friend2',
+        progress: 20,
+
+      }]
+    });
+  }
+
+  async createRoom(name: string, type: RoomType, length: number): Promise<undefined> {
+    console.log(`Creating room ${name} ${type} ${length}`);
+
+    return Promise.resolve(undefined);
+  }
+
+  async updateRoom(code: string, room: UpdateRoom): Promise<undefined> {
+    console.log(`Updating room ${code}: ${room.progress}`);
+
+    return Promise.resolve(undefined);
+  }
+
+  async inviteMembers(code: string, members: InviteMember[]): Promise<undefined> {
+    for (const member of members) {
+      console.log(`Inviting ${member.name} ${member.email} to room ${code}.`);
+    }
+
+    return Promise.resolve(undefined);
+  }
+
+  async listRooms(): Promise<Room[] | undefined> {
+    return Promise.resolve([{
+      name: 'Room1',
+
+      length: 100,
+      type: RoomType.Book,
       code: 'a76e4',
       progress: 50,
-      friends: [{
+      members: [{
         name: 'friend1',
         progress: 10,
 
@@ -111,11 +194,11 @@ export class StubAPI {
       }]
     },
     {
-      title: 'Room1', length: 100,
-      type: 'book',
+      name: 'Room1', length: 100,
+      type: RoomType.Book,
       code: 'b35hi',
       progress: 50,
-      friends: [{
+      members: [{
         name: 'friend1',
         progress: 10,
 
@@ -130,12 +213,12 @@ export class StubAPI {
       }]
     },
     {
-      title: 'Room1',
+      name: 'Room1',
       code: 'c89g10',
       length: 32,
-      type: 'show',
+      type: RoomType.Show,
       progress: 3,
-      friends: [{
+      members: [{
         name: 'friend1',
         progress: 1,
 
