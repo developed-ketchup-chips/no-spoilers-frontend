@@ -11,11 +11,11 @@ const BASE_URL = "http://127.0.0.1:5000"
 
 export enum RoomType {
   Book = 'book',
-  Show = 'show'
+  Show = 'show',
 }
 
 export interface Room {
-  title: string;
+  name: string;
   type: RoomType;
   length: number;
   progress: number;
@@ -24,7 +24,7 @@ export interface Room {
 }
 
 export interface UpdateRoom {
-  title: string | undefined;
+  name: string | undefined;
   type: RoomType | undefined;
   length: number | undefined;
   progress: number | undefined;
@@ -80,10 +80,10 @@ interface API {
   getRoom(code: string): Promise<Room | undefined>;
 
   // get all rooms for the current user
-  getRooms(): Promise<Room[] | undefined>;
+  listRooms(): Promise<Room[] | undefined>;
 
   // create room
-  createRoom(title: string, type: RoomType, length: number): Promise<undefined>;
+  createRoom(name: string, type: RoomType, length: number): Promise<undefined>;
 
   // update room
   updateRoom(code: string, room: UpdateRoom): Promise<undefined>;
@@ -103,15 +103,24 @@ export class RealAPI {
     });
   }
 
-  async getRooms(): Promise<Room[] | undefined> {
+  async listRooms(): Promise<Room[] | undefined> {
     try {
-      const response = await axios.get('/rooms');
+      const response = await this.instance.get('/rooms');
       if (response.status == 200) {
         return response.data;
       }
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async createRoom(name: string, type: RoomType, length: number): Promise<undefined> {
+    const response = await axios.post('/rooms', {
+      name: name,
+      type: type,
+      length: length,
+    });
+    return Promise<undefined>;
   }
 }
 
@@ -121,7 +130,7 @@ export class StubAPI {
 
   async getRoom(code: string): Promise<Room | undefined> {
     return Promise.resolve({
-      title: 'Room1',
+      name: 'Room1',
       length: 100,
       type: RoomType.Book,
       code: code,
@@ -142,8 +151,8 @@ export class StubAPI {
     });
   }
 
-  async createRoom(title: string, type: RoomType, length: number): Promise<undefined> {
-    console.log(`Creating room ${title} ${type} ${length}`);
+  async createRoom(name: string, type: RoomType, length: number): Promise<undefined> {
+    console.log(`Creating room ${name} ${type} ${length}`);
 
     return Promise.resolve(undefined);
   }
@@ -162,9 +171,9 @@ export class StubAPI {
     return Promise.resolve(undefined);
   }
 
-  async getRooms(): Promise<Room[] | undefined> {
+  async listRooms(): Promise<Room[] | undefined> {
     return Promise.resolve([{
-      title: 'Room1',
+      name: 'Room1',
       length: 100,
       type: RoomType.Book,
       code: 'a76e4',
@@ -184,7 +193,7 @@ export class StubAPI {
       }]
     },
     {
-      title: 'Room1', length: 100,
+      name: 'Room1', length: 100,
       type: RoomType.Book,
       code: 'b35hi',
       progress: 50,
@@ -203,7 +212,7 @@ export class StubAPI {
       }]
     },
     {
-      title: 'Room1',
+      name: 'Room1',
       code: 'c89g10',
       length: 32,
       type: RoomType.Show,

@@ -8,7 +8,7 @@
 
   >
     <v-card-text>
-      <h2 class="text-h5 font-weight-bold pa-md-6">{{title}}</h2>
+      <h2 class="text-h5 font-weight-bold pa-md-6">{{name}}</h2>
       <p class="pt-2">length: {{ length }}</p>
       <p class="pt-2">type : {{ type }}</p>
     </v-card-text>
@@ -45,17 +45,13 @@ import FriendProgress from '@/components/FriendProgress.vue'
 import { PropType } from 'vue';
 
 defineProps({
-
-      title: String,
+      name: String,
       length: Number,
       type: String,
-      code:Number,
-      progress:String,
+      code: String,
+      progress: Number,
       members: Array as PropType<Member[]>,
     })
-
-
-
 </script>
 
 <style>
