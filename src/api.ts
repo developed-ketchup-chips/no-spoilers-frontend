@@ -99,7 +99,7 @@ export class RealAPI {
   constructor(token: string) {
     this.instance = axios.create({
       baseURL: BASE_URL,
-      headers: { 'Authorization': `Bearer ${token}` }
+      headers: { 'Authorization': `Bearer ${token}`, 'token': token }
     });
   }
 
