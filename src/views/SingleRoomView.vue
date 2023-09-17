@@ -3,14 +3,16 @@
     <v-responsive class="align-center text-center ">
       <v-card
       class="mx-auto room-card"
-      max-width="344"
+      max-width="800"
 
       >
-      <v-card-text>
-        <h1>SINGLE ROOM VIEW</h1>
-        <h1>Room ID: {{ $route.params.id }}</h1>
+      <RoomUpdate class="mt-4" />
 
-        <h2 class="text-h5 font-weight-bold pa-md-6">{{title}} id:{{ id  }}</h2>
+      <v-card-text >
+        <h1 class="text-h5 font-weight-bold pa-md-6">SINGLE ROOM VIEW</h1>
+        <h1>Room ID: {{ $route.params.code}}</h1>
+
+        <h2 class="text-h5 font-weight-bold pa-md-6">{{title}} code:{{$route.params.code}}</h2>
         <p class="pt-2">length: {{ length }}</p>
         <p class="pt-2">type : {{ type }}</p>
     </v-card-text>
@@ -29,11 +31,13 @@
   </v-card>
 
 
+
     </v-responsive>
   </v-container>
 </template>
 
 <script lang="ts" setup>
+import RoomUpdate from '@/components/RoomUpdate.vue'
 
 import FriendProgress from '@/components/FriendProgress.vue'
 defineProps({
@@ -44,4 +48,5 @@ defineProps({
       friendProgressData: Array,
       id:Number
     })
+
 </script>

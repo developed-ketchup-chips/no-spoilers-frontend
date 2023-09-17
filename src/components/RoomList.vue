@@ -3,20 +3,19 @@
     <v-responsive class="text-center container-cards">
 
       <h1 class="text-h2 font-weight-bold">My rooms</h1>
+      <!-- <RoomUpdate class="mt-4" /> -->
       <ul  v-if="rooms" class="card-list">
         <RoomCard v-for="(room,index) in rooms" :key="index" v-bind="room"/>
       </ul>
-
-      <RoomAdd class="mt-4"/>
     </v-responsive>
-    <RoomUpdate />
   </v-container>
 </template>
 
 <script lang="ts" setup>
 
 import RoomCard from '@/components/RoomCard.vue'
-import RoomAdd from '@/components/RoomAdd.vue'
+// import RoomUpdate from '@/components/RoomUpdate.vue'
+
 import { createAPI, Room } from '@/api'
 import { onMounted, ref } from 'vue';
 
