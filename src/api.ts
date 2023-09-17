@@ -67,10 +67,10 @@ export async function authenticate(email: string): Promise<void> {
 }
 
 export function createAPI(): API {
-  const token = localStorage.getItem('token');
-  // const token = 'token';
+  // const token = localStorage.getItem('token');
+  const token = 'token';
   if (token) {
-    return new RealAPI(token);
+    return new StubAPI(token);
   } else {
     throw new Error('No token found');
   }

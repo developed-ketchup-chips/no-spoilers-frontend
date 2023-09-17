@@ -22,7 +22,6 @@
 
 <script lang="ts">
 import {authenticate} from '@/api'
-
 export default {
   data() {
     return {
