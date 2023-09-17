@@ -9,7 +9,7 @@ import axios from 'axios';
 // const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
 const BASE_URL = "http://127.0.0.1:5000"
 
-enum RoomType {
+export enum RoomType {
   Book = 'book',
   Show = 'show'
 }
@@ -33,6 +33,11 @@ export interface UpdateRoom {
 export interface Member {
   name: string;
   progress: number;
+}
+
+export interface InviteMember {
+  name: string;
+  email: number;
 }
 
 // authenticate with the backend (doesn't require a token)
@@ -82,6 +87,9 @@ interface API {
 
   // update room
   updateRoom(code: string, room: UpdateRoom): Promise<undefined>;
+
+  // invite members
+  inviteMembers(code: string, members: InviteMember[]): Promise<undefined>;
 }
 
 export class RealAPI {
@@ -142,6 +150,14 @@ export class StubAPI {
 
   async updateRoom(code: string, room: UpdateRoom): Promise<undefined> {
     console.log(`Updating room ${code}: ${room.progress}`);
+
+    return Promise.resolve(undefined);
+  }
+
+  async inviteMembers(code: string, members: InviteMember[]): Promise<undefined> {
+    for (const member of members) {
+      console.log(`Inviting ${member.name} ${member.email} to room ${code}.`);
+    }
 
     return Promise.resolve(undefined);
   }

@@ -21,7 +21,7 @@
         ></v-progress-linear>
       </div>
       <ul class="pt-3">
-        <FriendProgress v-for="(friend,index) in friends" :key="index+1" v-bind="friend"/>
+        <FriendProgress v-for="(friend,index) in members" :key="index+1" v-bind="friend"/>
       </ul>
     <v-card-actions>
       <v-btn
@@ -51,7 +51,7 @@ defineProps({
       type: String,
       code:Number,
       progress:String,
-      friends: Array as PropType<Member[]>,
+      members: Array as PropType<Member[]>,
     })
 
 
