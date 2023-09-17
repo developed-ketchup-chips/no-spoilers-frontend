@@ -6,7 +6,8 @@
 
 import axios from 'axios';
 
-const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
+// const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
+const BASE_URL = "http://127.0.0.1:5000"
 
 interface Room {
   title: string;
