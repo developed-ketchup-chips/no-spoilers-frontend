@@ -27,7 +27,7 @@ const routes = [
         component: LoginView,
       },
        {
-        path: "/rooms/:id", // :id is a dynamic parameter
+        path: "/rooms/:code", // :id is a dynamic parameter
         name: "room",
         component: SingleRoomView,
         props: true, // Pass the route parameter as a prop to the component
