@@ -4,6 +4,7 @@
       <v-card
     class="mx-auto room-card"
     max-width="344"
+    :data-code ="code"
 
   >
     <v-card-text>
@@ -20,7 +21,7 @@
         ></v-progress-linear>
       </div>
       <ul class="pt-3">
-        <FriendProgress v-for="(friend,index) in friendProgressData" :key="index+1" v-bind="friend"/>
+        <FriendProgress v-for="(friend,index) in friends" :key="index+1" v-bind="friend"/>
       </ul>
     <v-card-actions>
       <v-btn
@@ -37,16 +38,20 @@
   </v-container>
 </template>
 
-<script setup>
-
+<script lang="ts" setup>
+import {Member} from '@/api'
 
 import FriendProgress from '@/components/FriendProgress.vue'
+import { PropType } from 'vue';
+
 defineProps({
+
       title: String,
-      length: String,
+      length: Number,
       type: String,
-      progress:Number,
-      friendProgressData: Array,
+      code:Number,
+      progress:String,
+      friends: Array as PropType<Member[]>,
     })
 
 

@@ -9,7 +9,7 @@
       Invite Only
             <div class="py-14" />
 
-      <RoomAdd />
+            <RoomAdd/>
 
     </v-responsive>
   </v-container>
