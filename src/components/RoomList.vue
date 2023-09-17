@@ -8,6 +8,7 @@
         <RoomCard v-for="(room,index) in rooms" :key="index" v-bind="room"/>
       </ul>
     </v-responsive>
+    <RoomUpdate />
   </v-container>
 </template>
 
