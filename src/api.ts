@@ -90,7 +90,8 @@ export class StubAPI {
   constructor(token: string) { console.log(`Initializing API for ${token}`) }
 
   async getRooms(): Promise<Room[] | undefined> {
-    return Promise.resolve([{
+    return Promise.resolve([
+      {
       title: 'Room1',
       length: 100,
       type: 'book',
