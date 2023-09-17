@@ -9,6 +9,7 @@
 
       <RoomAdd class="mt-4"/>
     </v-responsive>
+    <RoomUpdate />
   </v-container>
 </template>
 
