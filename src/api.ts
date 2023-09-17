@@ -22,7 +22,45 @@ interface Member {
   progress: number;
 }
 
-export class API {
+// authenticate with the backend (doesn't require a token)
+/* NOTE: if we were using a real magic token security model (ala Medium.com),
+this would work differently. There would be a link to follow in email and a
+verification step to get the JWT (also called access token) based on a magic token
+in the link. We’d need additional login/signup with an email address in the request,
+and authenticate would send a magic token instead. */
+export async function authenticate(email: string): Promise<void> {
+  try {
+    const response = await axios.post('/authenticate', {
+      email: email
+    }, {
+      baseURL: BASE_URL
+    })
+
+    if (response.status == 200) {
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+    } else {
+      console.error(`error authenticating ${response.status}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function createAPI(): API {
+  const token = localStorage.getItem('token');
+  if (token) {
+    return new StubAPI(token);
+  } else {
+    throw new Error('No token found');
+  }
+}
+
+interface API {
+  getRooms(): Promise<Room[] | undefined>;
+}
+
+export class RealAPI {
   // axios instance
   instance: any;
 
