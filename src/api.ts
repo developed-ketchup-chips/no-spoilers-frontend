@@ -6,8 +6,8 @@
 
 import axios from 'axios';
 
-// const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
-const BASE_URL = "http://127.0.0.1:5000"
+const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
+// const BASE_URL = "http://127.0.0.1:5000"
 
 export enum RoomType {
   Book = 'book',
@@ -66,10 +66,10 @@ export async function authenticate(email: string): Promise<void> {
 }
 
 export function createAPI(): API {
-  // const token = localStorage.getItem('token');
-  const token = 'token';
+  const token = localStorage.getItem('token');
+  // const token = 'token';
   if (token) {
-    return new StubAPI(token);
+    return new RealAPI(token);
   } else {
     throw new Error('No token found');
   }
