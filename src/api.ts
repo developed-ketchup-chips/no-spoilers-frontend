@@ -174,6 +174,7 @@ export class StubAPI {
   async listRooms(): Promise<Room[] | undefined> {
     return Promise.resolve([{
       name: 'Room1',
+
       length: 100,
       type: RoomType.Book,
       code: 'a76e4',

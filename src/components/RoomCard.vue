@@ -55,7 +55,7 @@ defineProps({
 </script>
 
 <style>
-.room-card{
+.room-card {
   padding: 10px;
   background-color: #F3EFE0;
 }
