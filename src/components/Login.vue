@@ -1,3 +1,4 @@
+
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height">
@@ -7,20 +8,28 @@
       <div class="py-14" />
       Enter the email address associated with your account, and we’ll send a magic link to your inbox.
       <div class="py-14" />
-      <v-row justify="center" class="ma-2">
-        <v-col cols="4"><v-text-field label="Email" placeholder="Email"></v-text-field></v-col>
-      </v-row>
-      <v-btn
-          color="primary"
-        >
-        Continue
-        </v-btn>
-
+      <form>
+        <p>email: <input type="text" required></p>
+        <button @click="submit">Continue</button>
+      </form>
     </v-responsive>
   </v-container>
 </template>
 
-<script lang="ts" setup>
-//
-
+<script lang="ts">
+import {authenticate} from '@/api'
+export default {
+  data() {
+    return {
+      email: ''
+    }
+  },
+  methods: {
+    async submit(e) {
+      e.preventDefault();
+      await authenticate(this.email);
+      this.email = '';
+    }
+  }
+}
 </script>
