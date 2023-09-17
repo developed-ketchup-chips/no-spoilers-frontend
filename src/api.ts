@@ -8,16 +8,16 @@ import axios from 'axios';
 
 const BASE_URL = "https://no-spoilers.ngrok.io/api/v1"
 
-interface Room {
+export interface Room {
   title: string;
   type: string;
   length: number;
   progress: number;
   code: string;
-  friends: Member[];
+  friends: Array<Member[]>;
 }
 
-interface Member {
+export interface Member {
   name: string;
   progress: number;
 }
@@ -48,7 +48,8 @@ export async function authenticate(email: string): Promise<void> {
 }
 
 export function createAPI(): API {
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
+  const token = 'token';
   if (token) {
     return new StubAPI(token);
   } else {
