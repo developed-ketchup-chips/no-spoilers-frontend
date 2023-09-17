@@ -133,22 +133,22 @@ export class StubAPI {
 
   async getRoom(code: string): Promise<Room | undefined> {
     return Promise.resolve({
-      name: 'Room1',
-      length: 100,
+      name: 'Harry Potter and the Philosopher\'s Stone',
+      length: 11,
       type: RoomType.Book,
       code: code,
-      progress: 50,
+      progress: 2,
       members: [{
         name: 'friend1',
-        progress: 10,
+        progress: 3,
 
       }, {
         name: 'friend3',
-        progress: 10,
+        progress: 1,
 
       }, {
         name: 'friend2',
-        progress: 20,
+        progress: 4,
 
       }]
     });
@@ -176,50 +176,50 @@ export class StubAPI {
 
   async listRooms(): Promise<Room[] | undefined> {
     return Promise.resolve([{
-      name: 'Room1',
+      name: 'Harry Potter and the Philosopher\'s Stone',
 
-      length: 100,
-      type: RoomType.Book,
+      length: 11,
+      type: 'book',
       code: 'a76e4',
-      progress: 50,
+      progress: 6,
       members: [{
         name: 'friend1',
-        progress: 10,
+        progress: 5,
 
       }, {
         name: 'friend3',
-        progress: 10,
+        progress: 2,
 
       }, {
         name: 'friend2',
-        progress: 20,
+        progress: 3,
 
       }]
     },
     {
-      name: 'Room1', length: 100,
-      type: RoomType.Book,
+      name: 'Data Structures the Fun Way', length: 100,
+      type: 'book',
       code: 'b35hi',
-      progress: 50,
+      progress: 10,
       members: [{
         name: 'friend1',
-        progress: 10,
+        progress: 3,
 
       }, {
         name: 'friend3',
-        progress: 10,
+        progress: 4,
 
       }, {
         name: 'friend2',
-        progress: 20,
+        progress: 10,
 
       }]
     },
     {
-      name: 'Room1',
+      name: 'Promised Neverland',
       code: 'c89g10',
-      length: 32,
-      type: RoomType.Show,
+      length: 11,
+      type: 'show',
       progress: 3,
       members: [{
         name: 'friend1',
@@ -231,7 +231,7 @@ export class StubAPI {
 
       }, {
         name: 'friend2',
-        progress: 14,
+        progress: 11,
       }]
     }
     ]);
