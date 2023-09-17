@@ -2,14 +2,14 @@
   <div>
     <h5 class="h5">{{name}}</h5>
     <v-progress-linear
-    bg-color="pink-lighten-3"
-    color="pink-lighten-1"
+    bg-color="beige"
+    color="primary"
     :model-value="progress"
     ></v-progress-linear>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 
     defineProps({
       name: String,

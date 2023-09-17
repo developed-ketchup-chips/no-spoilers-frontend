@@ -1,73 +1,44 @@
 <template>
   <v-container class="">
-    <v-responsive class="align-center text-center">
+    <v-responsive class="text-center container-cards">
 
       <h1 class="text-h2 font-weight-bold">My rooms</h1>
-      <ul class="card-list">
+      <ul  v-if="rooms" class="card-list">
         <RoomCard v-for="(room,index) in rooms" :key="index" v-bind="room"/>
       </ul>
 
-
+      <RoomAdd class="mt-4"/>
     </v-responsive>
     <RoomUpdate />
   </v-container>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 
 import RoomCard from '@/components/RoomCard.vue'
-import RoomUpdate from '@/components/RoomUpdate.vue'
-import { ref } from 'vue'
+import RoomAdd from '@/components/RoomAdd.vue'
+import { createAPI, Room } from '@/api'
+import { onMounted, ref } from 'vue';
 
-const rooms = ref([{title:'Room1',length: '100 pages',
-      type: 'book',
-      progress:50, friendProgressData: [{
-  name: 'friend1',
-  progress: 10,
+const API = createAPI();
+const rooms = ref<Room[]|undefined>([]); // Initialize rooms as an empty array of Room objects
 
-},{
-  name: 'friend3',
-  progress: 10,
 
-},{
-  name: 'friend2',
-  progress: 20,
+onMounted(async () => {
+  // Fetch rooms data when the component is mounted
+  rooms.value = await API.listRooms();
+});
 
-}]},
-{title:'Room1',length: '100 pages',
-      type: 'book',
-      progress:50, friendProgressData: [{
-  name: 'friend1',
-  progress: 10,
-
-},{
-  name: 'friend3',
-  progress: 10,
-
-},{
-  name: 'friend2',
-  progress: 20,
-
-}]},{title:'Room1',length: '100 pages',
-      type: 'book',
-      progress:50, friendProgressData: [{
-  name: 'friend1',
-  progress: 10,
-
-},{
-  name: 'friend3',
-  progress: 10,
-
-},{
-  name: 'friend2',
-  progress: 20,
-
-}]}])
 </script>
 
 <style>
 .card-list{
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+
+}
+.container-cards{
+
+  height: 100vh;
 }
 </style>

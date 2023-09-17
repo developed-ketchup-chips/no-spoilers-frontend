@@ -5,7 +5,8 @@
 
       <!-- <div class="py-14">Invite Only</div> -->
 
-      <RoomAdd />
+            <RoomAdd/>
+
     </v-responsive>
   </v-container>
 </template>
