@@ -17,7 +17,13 @@ const routes = [
         path: '/rooms',
         name: 'Rooms',
         component: RoomsView
+      },
+      {
+        path: '/login',
+        name: 'Home',
+        component: HomeView,
       }
+
     ],
   },
 ]

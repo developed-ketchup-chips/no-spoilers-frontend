@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="h3">{{name}}</h4>
+    <h5 class="h5">{{name}}</h5>
     <v-progress-linear
     bg-color="pink-lighten-3"
     color="pink-lighten-1"
