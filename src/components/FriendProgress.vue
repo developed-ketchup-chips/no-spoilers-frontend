@@ -10,8 +10,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { Member} from '@/api'
-  import { PropType } from 'vue';
 
     defineProps({
       name: String,
